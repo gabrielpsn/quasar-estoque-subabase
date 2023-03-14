@@ -12,4 +12,12 @@ link documentação quasar https://quasar.dev/
 
 # iniciando quasar
 
+quasar create nome_do_projeto
+
+npm i
+
+npx quasar dev
+
+link para artigo composable https://vueschool.io/articles/vuejs-tutorials/what-is-a-vue-js-composable/
+
 
