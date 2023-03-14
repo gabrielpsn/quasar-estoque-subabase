@@ -33,6 +33,16 @@
         flat
         to="/register"
       />
+
+       <div class="full-width">
+        <q-btn
+          label="Forgot Password ?"
+          color="primary"
+          class="full-width"
+          flat
+          to="/forgot-password"
+        />
+      </div>
       </div>
     </div>
    </q-form>

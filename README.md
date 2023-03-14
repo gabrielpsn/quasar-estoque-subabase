@@ -1,12 +1,12 @@
-# quasar-estoque-subabase
+# quasar-estoque-supabase
 
-# Curso de quasar com vue 3 e subabase
+# Curso de quasar com vue 3 e supabase
 
 link do curso https://www.youtube.com/watch?v=K5wxwnNnHIc&list=PLBjvYfV_TvwIfgvouZCaLtgjYdrWQL02d&index=1
 
-# Iniciando projeto com subabase
+# Iniciando projeto com supabase
 
-link documentação subabase https://supabase.com/docs/guides/database/api
+link documentação supabase https://supabase.com/docs/guides/database/api
 
 link documentação quasar https://quasar.dev/
 

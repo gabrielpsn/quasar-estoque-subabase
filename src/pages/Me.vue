@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div>
-      <p>Hello {{  user }}</p>
+      <p>Hello {{  user.email }}</p>
     </div>
   </q-page>
 </template>
