@@ -8,6 +8,9 @@
         <q-input
           label="Email"
           v-model="email"
+          laze-rules
+          :rules="[val => (val && val.length > 0) || 'Email is required']"
+          type="email"
         />
 
         <div class="full-width q-pt-md q-gutter-y-sm">
@@ -38,20 +41,22 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composable/useAuthUser'
+import useNotify from 'src/composable/useNOtify'
 
 export default defineComponent({
   name: 'PagePasswordReset',
   setup () {
     const { sendPasswordrestEmail } = useAuthUser()
+    const { notifyError, notifySuccess } = useNotify()
 
     const email = ref('')
 
     const hadleForgotPassword = async () => {
       try {
         await sendPasswordrestEmail(email.value)
-        alert(`Password send email ${email.value}`)
+        notifySuccess(`Password send email ${email.value}`)
       } catch (error) {
-        alert(error)
+        notifyError(error.message)
       }
     }
 

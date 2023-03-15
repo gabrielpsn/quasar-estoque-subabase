@@ -8,14 +8,21 @@
         <q-input
           label="Name"
           v-model="form.name"
+          laze-rules
+          :rules="[val => (val && val.length > 0) || 'Name is required']"
         />
         <q-input
           label="Email"
           v-model="form.email"
+          laze-rules
+          :rules="[val => (val && val.length > 0) || 'Email is required']"
+          type="email"
         />
         <q-input
           label="Password"
           v-model="form.password"
+          laze-rules
+          :rules="[val => (val && val.length >= 6) || 'Password is required and 6']"
         />
 
         <div class="full-width q-pt-md q-gutter-y-sm">
@@ -46,6 +53,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composable/useAuthUser'
+import useNotify from 'src/composable/useNOtify'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -53,6 +61,7 @@ export default defineComponent({
   setup () {
     const router = useRouter()
     const { register } = useAuthUser()
+    const { notifyError, notifySuccess } = useNotify()
 
     const form = ref({
       name: '',
@@ -67,8 +76,9 @@ export default defineComponent({
           name: 'email-confirmation',
           query: { email: form.value.email }
         })
+        notifySuccess('email send success')
       } catch (error) {
-        alert(error)
+        notifyError(error.message)
       }
     }
 
