@@ -38,7 +38,7 @@ export default defineComponent({
   name: 'PagePasswordReset',
   setup () {
     const { resetPassword } = useAuthUser()
-     const { notifyError, notifySuccess } = useNotify()
+    const { notifyError, notifySuccess } = useNotify()
     const route = useRoute()
     const router = useRouter()
     const token = route.query.token
