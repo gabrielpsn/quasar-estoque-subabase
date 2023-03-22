@@ -2,6 +2,7 @@ import { route } from 'quasar/wrappers'
 import useAuthUser from 'src/composable/useAuthUser'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+// import useConselho from 'src/boot/conselho'
 
 /*
  * If not building with SSR mode, you can
@@ -29,6 +30,11 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to) => {
     const { isLoggedIn } = useAuthUser()
+    // const { conselho } = useConselho()
+
+    // if (!conselho && to.name !== 'not-client') {
+    //   return { name: 'not-client' }
+    // }
 
     if (to.hash.includes('type=recovery') &&
         to.name !== 'reset-password'
