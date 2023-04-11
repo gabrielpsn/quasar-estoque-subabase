@@ -1,5 +1,6 @@
 import useSupabase from 'src/boot/supabase'
 import useAuthUser from './useAuthUser'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function useApi () {
   const { supabase } = useSupabase()
@@ -10,6 +11,13 @@ export default function useApi () {
     if (error) throw error
     return data
   }
+
+  const listPublic = async (table, userId) => {
+    const { data, error } = await supabase.from(table).select('*').eq('user_id', userId)
+    if (error) throw error
+    return data
+  }
+
   const getById = async (table, id) => {
     const { data, error } = await supabase
       .from(table)
@@ -51,11 +59,38 @@ export default function useApi () {
     return data
   }
 
+  const uploadImg = async (file, storage) => {
+    const fileName = uuidv4()
+    const { error } = supabase
+      .storage
+      .from(storage)
+      .upload(fileName, file, {
+        cacheControl: '3600',
+        upsert: false
+      })
+    const publicUrl = await getUrlPublic(fileName, storage)
+    if (error) throw error
+    console.log('publicUrl 2 ', publicUrl)
+    return publicUrl
+  }
+
+  const getUrlPublic = async (fileName, storage) => {
+    const response = supabase
+      .storage
+      .from(storage)
+      .getPublicUrl(fileName)
+    if (response.data.error) throw response.data.error
+    console.log('publicUrl', response.data)
+    return response.data.publicUrl
+  }
+
   return {
     list,
     getById,
     post,
     update,
-    remove
+    remove,
+    uploadImg,
+    listPublic
   }
 }
