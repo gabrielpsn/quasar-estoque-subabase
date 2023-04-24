@@ -28,6 +28,16 @@
              color="primary"
              @click="handleGoToStore"
              />
+             <q-btn
+             label="Copy Link"
+             dense
+             size="sm"
+             outline
+             class="q-ml-sm"
+             icon="mdi-content-copy"
+             color="primary"
+             @click="handleCopyUrl"
+             />
             <q-space />
             <q-btn v-if="$q.platform.is.desktop" :to="{name: 'form-product'}" icon="mdi-plus" label="Add New" color="primary" dense size="sm">
                 <q-tooltip>Add new</q-tooltip>
@@ -56,7 +66,7 @@ import { defineComponent, ref, onMounted } from 'vue'
 import useApi from 'src/composable/useApi'
 import useNotify from 'src/composable/useNOtify'
 import { useRouter } from 'vue-router'
-import { useQuasar } from 'quasar'
+import { useQuasar, openURL, copyToClipboard } from 'quasar'
 import { columnsProduct } from './table'
 import userAuthUser from 'src/composable/useAuthUser'
 
@@ -103,7 +113,20 @@ export default defineComponent({
 
     const handleGoToStore = () => {
       const idUser = user.value.id
-      router.push({ name: 'product-public', params: { id: idUser } })
+      const link = router.resolve({ name: 'product-public', params: { id: idUser } })
+      openURL(window.origin + link.href)
+    }
+
+    const handleCopyUrl = () => {
+      const idUser = user.value.id
+      const link = router.resolve({ name: 'product-public', params: { id: idUser } })
+      const externalLink = window.origin + link.href
+      copyToClipboard(externalLink)
+        .then(() => {
+          notifySuccess('successfully copied!')
+        }).catch(() => {
+          notifyError('Error copied link')
+        })
     }
 
     onMounted(() => {
@@ -116,7 +139,8 @@ export default defineComponent({
       loading,
       handleEdit,
       handleRemove,
-      handleGoToStore
+      handleGoToStore,
+      handleCopyUrl
     }
   }
 })

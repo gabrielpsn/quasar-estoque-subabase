@@ -54,9 +54,10 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import useAuthUser from 'src/composable/useAuthUser'
+import useApi from 'src/composable/useApi'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 
@@ -78,6 +79,12 @@ const linksList = [
     caption: '',
     icon: 'mdi-shape-outline',
     routeName: 'product'
+  },
+  {
+    title: 'Config',
+    caption: '',
+    icon: 'mdi-cog',
+    routeName: 'form-config'
   }
 ]
 
@@ -93,6 +100,7 @@ export default defineComponent({
     const router = useRouter()
     const $q = useQuasar()
     const { logout } = useAuthUser()
+    const { getBrand } = useApi()
 
     const handleLogout = async () => {
       $q.dialog({
@@ -105,6 +113,10 @@ export default defineComponent({
         router.replace({ name: 'login' })
       })
     }
+
+    onMounted(() => {
+      getBrand()
+    })
 
     return {
       essentialLinks: linksList,
