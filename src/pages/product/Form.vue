@@ -60,6 +60,7 @@ import { defineComponent, ref, onMounted, computed } from 'vue'
 import useApi from 'src/composable/useApi'
 import useNotify from 'src/composable/useNOtify'
 import { useRouter, useRoute } from 'vue-router'
+import useAuthUser from 'src/composable/useAuthUser'
 
 export default defineComponent({
   name: 'form-product',
@@ -67,8 +68,9 @@ export default defineComponent({
     const table = 'product'
     const router = useRouter()
     const route = useRoute()
-    const { post, getById, update, list, uploadImg } = useApi()
+    const { post, getById, update, listPublic, uploadImg } = useApi()
     const { notifySuccess, notifyError } = useNotify()
+    const { user } = useAuthUser()
 
     const isUpdate = computed(() => route.params.id)
 
@@ -103,7 +105,7 @@ export default defineComponent({
     })
 
     const handleListCategory = async () => {
-      optionsCategory.value = await list('category')
+      optionsCategory.value = await listPublic('category', user.value.id)
     }
 
     const handleSubmit = async () => {

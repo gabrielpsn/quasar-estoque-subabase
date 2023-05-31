@@ -19,6 +19,14 @@
               unmasked-value
             />
 
+            <q-input
+              label="Img Paralax"
+              stack-label
+              v-model="paralax"
+              type="file"
+              accept="image/*"
+            />
+
             <div class="row justify-center q-gutter-md q-pa-md">
               <q-color v-model="form.primary" class="my-picker col-md-4 col-sm-12 col-xs-12 text-center" />
               <q-color v-model="form.secondary" class="my-picker col-md-4 col-sm-12 col-xs-12 text-center" />
@@ -44,13 +52,14 @@ export default defineComponent({
   setup () {
     const table = 'config'
     const router = useRouter()
-    const { post, update, listPublic } = useApi()
+    const { post, update, listPublic, uploadImg } = useApi()
     const { notifySuccess, notifyError } = useNotify()
     const { setBrand } = useBrand()
     const { user } = useAuthUser()
 
     let config = {}
 
+    const paralax = ref([])
     const form = ref({
       name: '',
       phone: '',
@@ -76,6 +85,12 @@ export default defineComponent({
 
     const handleSubmit = async () => {
       try {
+        if (paralax.value.length > 0) {
+          const imgUrl = await uploadImg(paralax.value[0], 'paralax')
+          console.log('imgUrl', imgUrl)
+          form.value.img_paralax = imgUrl
+        }
+
         if (form.value.id) {
           await update(table, form.value)
           notifySuccess('Update Success')
@@ -93,7 +108,8 @@ export default defineComponent({
     }
     return {
       form,
-      handleSubmit
+      handleSubmit,
+      paralax
     }
   }
 })

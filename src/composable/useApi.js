@@ -10,7 +10,8 @@ const brand = ref({
   primary: '',
   secondary: '',
   name: '',
-  phone: ''
+  phone: '',
+  img_paralax: ''
 })
 
 export default function useApi () {
@@ -26,10 +27,26 @@ export default function useApi () {
     return data
   }
 
-  const listPublic = async (table, userId) => {
-    const { data, error } = await supabase.from(table).select('*').eq('user_id', userId)
+  const listPublic = async (table, userId, columnFilter = '', filter = '') => {
+    const { data, error } = await supabase
+      .from(table)
+      .select('*')
+      .eq('user_id', userId)
+      .eq(columnFilter, filter)
     if (error) throw error
     return data
+  }
+
+  const fetchCount = async (table, userId) => {
+    const { data, error, count } = await supabase
+      .from(table)
+      .select('*', { count: 'exact' })
+      .eq('user_id', userId)
+    if (error) throw error
+    return {
+      data,
+      count
+    }
   }
 
   const getById = async (table, id) => {
@@ -126,6 +143,7 @@ export default function useApi () {
     uploadImg,
     listPublic,
     getBrand,
-    brand
+    brand,
+    fetchCount
   }
 }
