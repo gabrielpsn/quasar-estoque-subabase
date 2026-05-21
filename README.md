@@ -1,27 +1,13 @@
-# quasar-estoque-supabase
+# Controle de Estoque com Quasar & Supabase 📦
 
-# Curso de quasar com vue 3 e supabase
+Um sistema de gerenciamento de inventário e estoque moderno e responsivo, desenvolvido utilizando o **Quasar Framework** no ecossistema Vue.js e integrado com o **Supabase** (PostgreSQL / Serverless).
 
-link do curso https://www.youtube.com/watch?v=K5wxwnNnHIc&list=PLBjvYfV_TvwIfgvouZCaLtgjYdrWQL02d&index=1
+### ⚡ Diferenciais Técnicos
+- **Real-time Data:** Integração direta com o Supabase para sincronização em tempo real de entradas e saídas de produtos.
+- **Componentização Avançada:** Uso de componentes nativos do Quasar otimizados para alta performance e responsividade em múltiplos dispositivos.
+- **Autenticação e Segurança:** Fluxo de login e proteção de rotas gerenciados via Supabase Auth.
 
-# Iniciando projeto com supabase
-
-link documentação supabase https://supabase.com/docs/guides/database/api
-
-link documentação quasar https://quasar.dev/
-
-link do site para deploy https://api.netlify.com
-
-# iniciando quasar
-
-quasar create nome_do_projeto
-
-npm i
-
-npx quasar dev
-
-link para artigo composable https://vueschool.io/articles/vuejs-tutorials/what-is-a-vue-js-composable/
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2009b3af-928a-4773-b01b-147f5b46ff6f/deploy-status)](https://app.netlify.com/sites/quasar-supabase-2023/deploys)
-
-
+### 🛠️ Stack Tecnológica
+- **Frontend:** Vue.js 3 / Quasar Framework
+- **Backend & Banco de Dados:** Supabase / PostgreSQL
+- **State Management:** Pinia / Vuex
